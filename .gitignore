@@ -1,0 +1,11 @@
+# VSCode
+.vsecode/
+
+# Sistema
+*.log
+*.tmp
+*.DS_Store
+Thumbs.db
+
+# Archivos Personales
+*.env
