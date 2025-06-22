@@ -12,7 +12,6 @@ Write-Host "Starting what-if analysis for Azure resources..." -ForegroundColor C
 az deployment group what-if `
     --resource-group $resourceGroup `
     --template-file $templateFile `
-    --parameters $parametersFile `
-    --no-wait
+    --parameters @$parametersFile `
 
 Write-Host "What-if analysis initiated. You can check the results in the Azure portal." -ForegroundColor Green

@@ -13,6 +13,18 @@
         },
         "webAppName":{
             "value": "web-infra-dev-01"
+        },
+        "sqlServerName":{
+            "value": "sqlserverweb001"
+        },
+        "sqlDbName":{
+            "value": "sqlweb001"
+        },
+        "adminUserName":{
+            "value": "sqladmin"
+        },
+        "adminPassword":{
+            "value": "P@ssw0rd1234!"
         }
-        }
+}
 }
