@@ -1,4 +1,4 @@
-param location string = 'centralus' // Default location, can be overridden
+param location string = 'westeurope' // Default location, can be overridden
 param storageAccountName string
 param appServicePlanName string
 param webAppName string
@@ -28,3 +28,5 @@ module appServiceModule './modules/appService.bicep' = {
     appServicePlanId: appServicePlanModule.outputs.appServicePlanId
   }
 }
+
+output webAppUrl string = appServiceModule.outputs.webAppUrl
