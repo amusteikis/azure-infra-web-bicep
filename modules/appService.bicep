@@ -14,3 +14,5 @@ resource webApp 'Microsoft.Web/sites@2022-03-01' = {
   }
   kind: 'app,linux' // Specify the kind for Linux app service
   }
+
+  output webAppUrl string = 'https://${webApp.properties.defaultHostName}'

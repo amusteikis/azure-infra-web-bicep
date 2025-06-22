@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "westeurope"
+        },
+        "storageAccountName": {
+            "value": "stinfraweb001"
+        },
+        "appServicePlanName":{
+            "value": "asp-infra-dev-01"
+        },
+        "webAppName":{
+            "value": "web-infra-dev-01"
+        }
+        }
+}
