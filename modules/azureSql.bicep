@@ -17,7 +17,8 @@ resource sqlServer 'Microsoft.Sql/servers@2022-02-01-preview' = {
  
 
 resource sqlDatabase 'Microsoft.Sql/servers/databases@2022-02-01-preview' = {
-  name: '${sqlServer.name}/${sqlDbName}'
+  name: sqlDbName
+  parent: sqlServer
   location: location
   sku: {
     name: 'Basic' // Basic tier for testing
@@ -28,8 +29,5 @@ resource sqlDatabase 'Microsoft.Sql/servers/databases@2022-02-01-preview' = {
     collation: 'SQL_Latin1_General_CP1_CI_AS' // Default collation
     maxSizeBytes: 2147483648 // 2 GB max size
   }
-  dependsOn: [
-    sqlServer
-  ]
 }
 
