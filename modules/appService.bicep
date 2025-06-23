@@ -2,6 +2,7 @@ param webAppName string
 param location string = resourceGroup().location
 param appServicePlanId string
 param secretUri string
+param appInsightsConnectionString string
 
 resource webApp 'Microsoft.Web/sites@2022-03-01' = {
   name: webAppName
@@ -14,7 +15,11 @@ resource webApp 'Microsoft.Web/sites@2022-03-01' = {
       appSettings: [
         {
           name: 'SQL_CONNECTION_STRING'
-         value: '@Microsoft.KeyVault(SecretUri=${secretUri})' // Reference the Key Vault secret}
+          value: '@Microsoft.KeyVault(SecretUri=${secretUri})' // Reference the Key Vault secret}
+        }
+        {  
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          value: appInsightsConnectionString // Reference the Application Insights connection string
     }
   ]
   }
