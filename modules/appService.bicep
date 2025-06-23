@@ -1,18 +1,25 @@
 param webAppName string
 param location string = resourceGroup().location
 param appServicePlanId string
+param secretUri string
 
 resource webApp 'Microsoft.Web/sites@2022-03-01' = {
   name: webAppName
   location: location
+  kind: 'app,linux' // Specify the kind for Linux app service
   properties: {
     serverFarmId: appServicePlanId
     siteConfig: {
       linuxFxVersion: 'PYTHON|3.10' // Specify the Python version
+      appSettings: [
+        {
+          name: 'SQL_CONNECTION_STRING'
+         value: '@Microsoft.KeyVault(SecretUri=${secretUri})' // Reference the Key Vault secret}
     }
-    httpsOnly: true // Enforce HTTPS
+  ]
   }
-  kind: 'app,linux' // Specify the kind for Linux app service
+  httpsOnly: true // Enforce HTTPS
+ 
   }
-
-  output webAppUrl string = 'https://${webApp.properties.defaultHostName}'
+}
+ output webAppUrl string = 'https://${webApp.properties.defaultHostName}'
