@@ -7,6 +7,10 @@ param sqlDbName string
 param adminUserName string
 @secure()
 param adminPassword string
+param keyVaultName string
+param secretName string
+@secure()
+param connectionString string // Connection string to be stored in Key Vault
 
 
 module storageAccount './modules/storage.bicep' = {
@@ -32,6 +36,7 @@ module appServiceModule './modules/appService.bicep' = {
     webAppName: webAppName
     location: location
     appServicePlanId: appServicePlanModule.outputs.appServicePlanId
+    secretUri: keyVaultModule.outputs.secretUri // Pass the Key Vault secret URI to the app service
   }
 }
 
@@ -47,3 +52,15 @@ module sqlModule 'modules/azureSql.bicep' = {
     adminPassword: adminPassword
   }
 }
+
+module keyVaultModule './modules/keyvault.bicep' = {
+  name: 'deployKeyVault'
+  params: {
+    location: location
+    keyVaultName: keyVaultName
+    secretName: secretName
+    secretValue: connectionString
+  }
+}
+
+output sqlConnectionStringFromKeyVault string = keyVaultModule.outputs.secretUri
