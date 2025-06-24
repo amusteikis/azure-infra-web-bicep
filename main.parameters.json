@@ -34,6 +34,9 @@
         },
         "connectionString": {
             "value": "Server=tcp:sqlserverweb001.database.windows.net,1433;Initial Catalog=sqlweb001;Persist Security Info=False;User ID=sqladmin;Password=P@ssw0rd1234!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+        },
+        "appInsightsName": {
+            "value": "appinsightsweb001"
         }
 }
 }
