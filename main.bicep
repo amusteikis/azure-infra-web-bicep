@@ -73,4 +73,13 @@ module appInsightsModule './modules/appInsights.bicep'= {
   }
 }
 
+module diagSettingsModule './modules/diagnosticSettings.bicep' = {
+  name: 'deployDiagnosticSettings'
+  params: {
+    targetResourceId: appServiceModule.outputs.resourceId
+    storageAccountId: storageAccount.outputs.resourceId
+    diagName: 'diag-webapp-v2'
+  }
+}
+
 output sqlConnectionStringFromKeyVault string = keyVaultModule.outputs.secretUri
