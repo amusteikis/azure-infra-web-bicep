@@ -82,4 +82,35 @@ module diagSettingsModule './modules/diagnosticSettings.bicep' = {
   }
 }
 
+module sqlFirewall 'modules/sqlFirewallRules.bicep' = {
+  name: 'sqlFirewallRule'
+  params: {
+    sqlServerName: sqlModule.outputs.name
+    startIp: '186.182.86.0'
+    endIp: '186.182.86.255'
+  }
+}
+
+module kvFirewall 'modules/keyVaultFirewall.bicep' = {
+  name: 'keyVaultFirewallRule'
+  params: {
+    keyVaultName: keyVaultName
+    ipRange: '186.182.86.0/24'
+  }
+}
+
+// Optional Module: SQL private Endpoint
+/*
+module sqlPrivateEndpoint 'modules/privateEndpointSql.bicep' = {
+  name: 'sqlPrivateEndpoint'
+  params: {
+    location: location
+    sqlServerName: sqlModule.outputs.name
+    vnetName: 'myVnet' // Replace with your VNet name
+    subnetName: 'mySubnet' // Replace with your subnet name
+    enablePrivateEndpoint: false // Set to true if you want to enable private endpoint
+  }
+}
+
+*/
 output sqlConnectionStringFromKeyVault string = keyVaultModule.outputs.secretUri
