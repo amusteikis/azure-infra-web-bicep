@@ -31,3 +31,4 @@ resource sqlDatabase 'Microsoft.Sql/servers/databases@2022-02-01-preview' = {
   }
 }
 
+output name string = sqlServer.name
