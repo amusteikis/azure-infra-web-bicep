@@ -108,9 +108,18 @@ module sqlPrivateEndpoint 'modules/privateEndpointSql.bicep' = {
     sqlServerName: sqlModule.outputs.name
     vnetName: 'myVnet' // Replace with your VNet name
     subnetName: 'mySubnet' // Replace with your subnet name
-    enablePrivateEndpoint: false // Set to true if you want to enable private endpoint
+    enablePrivateEndpoint: false // Set to true if you want to enable private endpoint=
   }
 }
 
 */
+
+module keyVaultRbac './modules/keyVaultRbac.bicep' = {
+  name: 'keyVaultRbac'
+  params: {
+    keyVaultName: keyVaultName
+    principalId: appServiceModule.outputs.principalId // Assuming the principal is the App Service's managed identity
+    location: location
+  }
+}
 output sqlConnectionStringFromKeyVault string = keyVaultModule.outputs.secretUri
