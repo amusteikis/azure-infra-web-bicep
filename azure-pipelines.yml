@@ -25,5 +25,25 @@ stages:
                   --parameters @main.parameters.json
         displayName: 'Bicep What-if Validation'
           
-        
-    
+- stage: Deploy
+  displayName: "Manual Approval Deploy"
+  dependsOn: Validate
+  condition: succeeded()
+  jobs:
+    - deployment: DeployInfra
+      displayName: "Deploy to Azure (Manual Approval Required)"
+      environment: 'Production'
+      strategy: 
+        runOnce:
+          deploy:
+            steps:
+              - task: PowerShell@2
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    Write-Host "🚀 Deploying Bicep Template..."
+                    az deployment sub create `
+                      --location westeurope `
+                      --template-file ./main.bicep `
+                      --parameters @main.parameters.json
+                displayName: 'Deploy Bicep Template'
