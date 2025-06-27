@@ -7,11 +7,20 @@ stages:
   displayName: "Validate Bicep Templates"
   jobs:
   - job: BicepValidation
-    displayName: "Run Bicep What-if"
+    displayName: "Run Bicep Lint + What-if"
     pool:
       vmImage: 'ubuntu-latest'
     steps:
       - task: PowerShell@2
+        displayName: 'Lint Bicep Template'
+        inputs:
+          targetType: 'inline'
+          script: |
+            Write-Host "🔍 Linting Bicep..."
+            bicep build ./main.bicep
+
+      - task: PowerShell@2
+        displayName: 'Bicep What-if Validation'
         inputs:
           targetType: 'inline'
           script: |
@@ -23,7 +32,7 @@ stages:
                   --location westeurope `
                   --template-file ./main.bicep `
                   --parameters @main.parameters.json
-        displayName: 'Bicep What-if Validation'
+        
           
 - stage: Deploy
   displayName: "Manual Approval Deploy"
