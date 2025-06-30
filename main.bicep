@@ -89,7 +89,7 @@ module appInsightsModule './modules/appInsights.bicep'= {
   }
 }
 
-
+/*
 module sqlFirewall 'modules/sqlFirewallRules.bicep' = if (deploySql) {
   name: 'sqlFirewallRule'
   params: {
@@ -98,6 +98,7 @@ module sqlFirewall 'modules/sqlFirewallRules.bicep' = if (deploySql) {
     endIp: '186.182.86.255'
   }
 }
+  */
 /*
 module kvFirewall 'modules/keyVaultFirewall.bicep' = {
   name: 'keyVaultFirewallRule'
