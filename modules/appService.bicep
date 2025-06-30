@@ -1,3 +1,4 @@
+
 param webAppName string
 param location string = resourceGroup().location
 param appServicePlanId string
@@ -8,6 +9,9 @@ param appInsightsConnectionString string
 resource webApp 'Microsoft.Web/sites@2022-03-01' = {
   name: webAppName
   location: location
+  identity: {
+    type: 'SystemAssigned'
+  }
   kind: 'app,linux' // Specify the kind for Linux app service
   properties: {
     serverFarmId: appServicePlanId
@@ -25,7 +29,7 @@ resource webApp 'Microsoft.Web/sites@2022-03-01' = {
   ]
   }
   httpsOnly: true // Enforce HTTPS
- 
+
   }
 }
 

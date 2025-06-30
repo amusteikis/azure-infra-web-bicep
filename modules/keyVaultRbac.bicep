@@ -1,3 +1,4 @@
+
 param keyVaultName string
 param principalId string // Managed identity principal ID to assign RBAC role
 param location string

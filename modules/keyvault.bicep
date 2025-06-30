@@ -1,3 +1,4 @@
+
 param location string
 param keyVaultName string
 param secretName string
@@ -15,7 +16,6 @@ resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
     tenantId: subscription().tenantId
     accessPolicies: []
     enableSoftDelete: true // Enable soft delete for recovery
-    enablePurgeProtection: false
   }
 }
 
