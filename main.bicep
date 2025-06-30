@@ -119,6 +119,7 @@ module sqlPrivateEndpoint 'modules/privateEndpointSql.bicep' = {
 
 */
 
+/*
 module keyVaultRbac './modules/keyVaultRbac.bicep' = {
   name: 'keyVaultRbac'
   params: {
@@ -127,4 +128,6 @@ module keyVaultRbac './modules/keyVaultRbac.bicep' = {
     location: location
   }
 }
+
+*/
 output sqlConnectionStringFromKeyVault string = keyVaultModule.outputs.secretUri
