@@ -31,7 +31,7 @@ stages:
                 az deployment sub what-if `
                   --location westeurope `
                   --template-file ./main.bicep `
-                  --parameters @main.parameters.json
+                  --parameters "main.parameters.json"
         
           
 - stage: Deploy
