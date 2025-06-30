@@ -1,3 +1,5 @@
+@description('Set to true if you want to deploy Azure SQL resources')
+param deploySql bool = false
 param location string = 'westeurope' // Default location, can be overridden
 param storageAccountName string
 param appServicePlanName string
@@ -44,7 +46,7 @@ module appServiceModule './modules/appService.bicep' = {
 
 output webAppUrl string = appServiceModule.outputs.webAppUrl
 
-module sqlModule 'modules/azureSql.bicep' = {
+module sqlModule 'modules/azureSql.bicep' = if (deploySql) {
   name: 'deployAzureSql'
   params: {
     location: location
@@ -82,7 +84,7 @@ module diagSettingsModule './modules/diagnosticSettings.bicep' = {
   }
 }
 
-module sqlFirewall 'modules/sqlFirewallRules.bicep' = {
+module sqlFirewall 'modules/sqlFirewallRules.bicep' = if (deploySql) {
   name: 'sqlFirewallRule'
   params: {
     sqlServerName: sqlModule.outputs.name
