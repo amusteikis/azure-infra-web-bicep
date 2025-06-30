@@ -95,6 +95,9 @@ module sqlFirewall 'modules/sqlFirewallRules.bicep' = if (deploySql) {
 
 module kvFirewall 'modules/keyVaultFirewall.bicep' = {
   name: 'keyVaultFirewallRule'
+  dependsOn: [
+    keyVaultModule
+  ]
   params: {
     keyVaultName: keyVaultName
     ipRange: '186.182.86.0/24'
