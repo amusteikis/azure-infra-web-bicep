@@ -1,7 +1,5 @@
-
 param storageAccountId string
 param diagName string = 'diag-app-service'
-param targetResourceId string
 
 // Declarar el recurso existente para usarlo como scope
 resource targetResource 'Microsoft.Web/sites@2022-03-01' existing = {

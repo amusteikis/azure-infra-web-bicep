@@ -92,7 +92,6 @@ module appInsightsModule './modules/appInsights.bicep'= {
 module diagSettingsModule './modules/diagnosticSettings.bicep' = {
   name: 'deployDiagnosticSettings'
   params: {
-    targetResourceId: appServiceModule.outputs.webAppId
     storageAccountId: storageAccount.outputs.storageAccountId
     diagName: 'diag-webapp-v2'
   }
