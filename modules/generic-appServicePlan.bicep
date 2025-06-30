@@ -4,11 +4,10 @@ param name string
 param location string
 @description('SKU for the App Service Plan')
 param sku object = {
-  name: 'P1v2' // Default to Basic tier
-  tier: 'PremiumV2'
-  size: 'P1v2'
-  family: 'Pv2'
-  capacity: 1 // Default capacity
+  name: 'B1'
+  tier: 'Basic'
+  size: 'B1'
+  capacity: 1
 }
 
 @description('Whether the App Service Plan is for Linux')
@@ -26,3 +25,4 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
 
 output appServicePlanName string = appServicePlan.name
 output appServicePlanId string = appServicePlan.id
+
