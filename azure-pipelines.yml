@@ -49,13 +49,15 @@ stages:
           deploy:
             steps:
               - checkout: self
-              - task: PowerShell@2
+              - task: AzureCLI@2
                 inputs:
-                  targetType: 'inline'
-                  script: |
-                    Write-Host "🚀 Deploying Bicep Template..."
-                    az deployment group create `
-                      --resource-group rg-webapp-infra-dev `
-                      --template-file ./main.bicep `
-                      --parameters main.parameters.json
+                  azureSubscription: 'azure-rg-web-bicep'
+                  scriptType: 'bash'
+                  scriptLocation: 'inlineScript'
+                  inlineScript: |
+                    echo "🚀 Deploying Bicep Template..."
+                    az deployment group create \
+                      --resource-group rg-webapp-infra-dev \
+                      --template-file ./main.bicep \
+                      --parameters @main.parameters.json
                 displayName: 'Deploy Bicep Template'
