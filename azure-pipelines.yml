@@ -57,5 +57,5 @@ stages:
                     az deployment group create `
                       --resource-group rg-webapp-infra-dev `
                       --template-file ./main.bicep `
-                      --parameters @main.parameters.json
+                      --parameters main.parameters.json
                 displayName: 'Deploy Bicep Template'
