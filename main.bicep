@@ -89,13 +89,6 @@ module appInsightsModule './modules/appInsights.bicep'= {
   }
 }
 
-module diagSettingsModule './modules/diagnosticSettings.bicep' = {
-  name: 'deployDiagnosticSettings'
-  params: {
-    storageAccountId: storageAccount.outputs.storageAccountId
-    diagName: 'diag-webapp-v2'
-  }
-}
 
 module sqlFirewall 'modules/sqlFirewallRules.bicep' = if (deploySql) {
   name: 'sqlFirewallRule'
