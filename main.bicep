@@ -92,7 +92,7 @@ module sqlFirewall 'modules/sqlFirewallRules.bicep' = if (deploySql) {
     endIp: '186.182.86.255'
   }
 }
-
+/*
 module kvFirewall 'modules/keyVaultFirewall.bicep' = {
   name: 'keyVaultFirewallRule'
   dependsOn: [
@@ -103,7 +103,7 @@ module kvFirewall 'modules/keyVaultFirewall.bicep' = {
     ipRange: '186.182.86.0/24'
   }
 }
-
+*/
 // Optional Module: SQL private Endpoint
 /*
 module sqlPrivateEndpoint 'modules/privateEndpointSql.bicep' = {
