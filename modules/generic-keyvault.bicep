@@ -29,7 +29,10 @@ resource kvSecret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   properties: {
     value: secretValue
   }
-  dependsOn: [
-    keyVault // Ensure the Keyvault is created before the secret
-  ]
+
 }
+
+
+output secretUri string = kvSecret.properties.secretUriWithVersion
+output keyVaultId string = keyVault.id
+output keyVaultName string = keyVault.name

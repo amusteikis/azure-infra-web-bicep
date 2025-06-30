@@ -52,18 +52,26 @@ module appServiceModule './modules/generic-appservice.bicep' = {
 
 output webAppId string = appServiceModule.outputs.webAppId
 
-module sqlModule 'modules/azureSql.bicep' = if (deploySql) {
-  name: 'deployAzureSql'
+module sqlServerModule './modules/generic-sqlServer.bicep' = {
+  name: 'sqlServerModule'
   params: {
-    location: location
     sqlServerName: sqlServerName
-    sqlDbName: sqlDbName
+    location: location
     adminUserName: adminUserName
     adminPassword: adminPassword
   }
 }
 
-module keyVaultModule './modules/keyvault.bicep' = {
+module sqlDbModule './modules/generic-sqlDatabase.bicep' = {
+  name: 'sqlDbModule'
+  params: {
+    sqlDbName: sqlDbName
+    sqlServerName: sqlServerModule.outputs.sqlServerName
+    location: location
+  }
+}
+
+module keyVaultModule './modules/generic-keyvault.bicep' = {
   name: 'deployKeyVault'
   params: {
     location: location
@@ -93,7 +101,7 @@ module diagSettingsModule './modules/diagnosticSettings.bicep' = {
 module sqlFirewall 'modules/sqlFirewallRules.bicep' = if (deploySql) {
   name: 'sqlFirewallRule'
   params: {
-    sqlServerName: sqlModule.outputs.name
+    sqlServerName: sqlServerModule.outputs.sqlServerName
     startIp: '186.182.86.0'
     endIp: '186.182.86.255'
   }
