@@ -1,5 +1,3 @@
-@description('Set to true if you want to deploy Azure SQL resources')
-param deploySql bool = false
 param location string = 'westeurope' // Default location, can be overridden
 param sqlServerName string
 param sqlDbName string
@@ -29,10 +27,10 @@ module appServicePlanModule './modules/generic-appServicePlan.bicep' = {
     name: 'my-asp-${uniqueString(resourceGroup().id)}' // Unique name for the App Service Plan
     location: location  
     sku: {
-      name: 'P1v2' // Premium V2 tier
-      tier: 'PremiumV2'
-      size: 'P1v2'
-      capacity: 1 // Default capacity
+      name: 'B1'
+      tier: 'Basic'
+      size: 'B1'
+      capacity: 1
     }
     isLinux: true // Set to true for Linux App Service Plan
   }
