@@ -1,9 +1,6 @@
 @description('Set to true if you want to deploy Azure SQL resources')
 param deploySql bool = false
 param location string = 'westeurope' // Default location, can be overridden
-param storageAccountName string
-param appServicePlanName string
-param webAppName string
 param sqlServerName string
 param sqlDbName string
 param adminUserName string
@@ -16,11 +13,13 @@ param connectionString string // Connection string to be stored in Key Vault
 param appInsightsName string
 
 
-module storageAccount './modules/storage.bicep' = {
-  name: 'deployStorage'
+module storageAccount './modules/generic-storageAccount.bicep' = {
+  name: 'storageAccountModule'
   params: {
+    skuName: 'Standard_LRS' // Default to Standard Locally Redundant Storage
+    kind: 'StorageV2' // Default to StorageV2
     location: location
-    storageAccountName: storageAccountName
+    storageAccountName: 'stinfraweb${uniqueString(resourceGroup().id)}' // Unique name for the storage account
   }
 }   
 
@@ -86,7 +85,7 @@ module diagSettingsModule './modules/diagnosticSettings.bicep' = {
   name: 'deployDiagnosticSettings'
   params: {
     targetResourceId: appServiceModule.outputs.webAppId
-    storageAccountId: storageAccount.outputs.resourceId
+    storageAccountId: storageAccount.outputs.storageAccountId
     diagName: 'diag-webapp-v2'
   }
 }

@@ -5,15 +5,6 @@
         "location": {
             "value": "westeurope"
         },
-        "storageAccountName": {
-            "value": "stinfraweb001"
-        },
-        "appServicePlanName":{
-            "value": "asp-infra-dev-01"
-        },
-        "webAppName":{
-            "value": "web-infra-dev-01"
-        },
         "sqlServerName":{
             "value": "sqlserverweb001"
         },
