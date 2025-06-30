@@ -1,3 +1,4 @@
+
 param location string
 param vnetName string = 'vnet-dev'
 param addressPrefix string = '10.0.0.0/16'

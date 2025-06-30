@@ -1,3 +1,4 @@
+
 param appServicePlanName string
 param location string = resourceGroup().location
 

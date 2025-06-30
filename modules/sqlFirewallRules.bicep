@@ -1,3 +1,4 @@
+
 param sqlServerName string
 param startIp string = '186.182.86.0'
 param endIp string = '186.182.86.255'

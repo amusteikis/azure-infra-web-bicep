@@ -1,3 +1,4 @@
+
 param storageAccountName string
 param location string = resourceGroup().location
 

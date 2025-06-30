@@ -1,3 +1,4 @@
+
 param webAppName string
 param location string = resourceGroup().location
 param appServicePlanId string

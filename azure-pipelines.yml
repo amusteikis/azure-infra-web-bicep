@@ -28,8 +28,8 @@ stages:
                 az bicep version
 
                 Write-Host "📦 Running What-If Analysis..."
-                az deployment sub what-if `
-                  --location westeurope `
+                az deployment group what-if `
+                  --resource-group rg-webapp-infra-dev `
                   --template-file ./main.bicep `
                   --parameters "main.parameters.json"
         

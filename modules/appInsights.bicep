@@ -1,3 +1,4 @@
+
 param location string
 param appInsightsName string
 

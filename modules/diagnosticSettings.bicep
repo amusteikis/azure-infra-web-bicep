@@ -1,3 +1,4 @@
+
 param storageAccountId string
 param diagName string = 'diag-app-service'
 param targetResourceId string
