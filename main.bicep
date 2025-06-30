@@ -24,19 +24,26 @@ module storageAccount './modules/storage.bicep' = {
   }
 }   
 
-module appServicePlanModule './modules/appServicePlan.bicep' = {
-  name: 'deployAppServicePlan'
+module appServicePlanModule './modules/generic-appServicePlan.bicep' = {
+  name: 'appServicePlanModule'
   params: {
-    appServicePlanName: appServicePlanName
+    name: 'my-asp-${uniqueString(resourceGroup().id)}' // Unique name for the App Service Plan
     location: location  
+    sku: {
+      name: 'P1v2' // Premium V2 tier
+      tier: 'PremiumV2'
+      size: 'P1v2'
+      capacity: 1 // Default capacity
+    }
+    isLinux: true // Set to true for Linux App Service Plan
   }
 }
 
 
-module appServiceModule './modules/appService.bicep' = {
+module appServiceModule './modules/generic-appservice.bicep' = {
   name: 'deployAppService'
   params: {
-    webAppName: webAppName
+    webAppName: 'web-infra-dev-${uniqueString(resourceGroup().id)}' // Unique name for the web application
     location: location
     appServicePlanId: appServicePlanModule.outputs.appServicePlanId
     secretUri: keyVaultModule.outputs.secretUri // Pass the Key Vault secret URI to the app service
@@ -44,7 +51,7 @@ module appServiceModule './modules/appService.bicep' = {
   }
 }
 
-output webAppUrl string = appServiceModule.outputs.webAppUrl
+output webAppId string = appServiceModule.outputs.webAppId
 
 module sqlModule 'modules/azureSql.bicep' = if (deploySql) {
   name: 'deployAzureSql'
@@ -78,7 +85,7 @@ module appInsightsModule './modules/appInsights.bicep'= {
 module diagSettingsModule './modules/diagnosticSettings.bicep' = {
   name: 'deployDiagnosticSettings'
   params: {
-    targetResourceId: appServiceModule.outputs.resourceId
+    targetResourceId: appServiceModule.outputs.webAppId
     storageAccountId: storageAccount.outputs.resourceId
     diagName: 'diag-webapp-v2'
   }

@@ -27,4 +27,4 @@ resource kvSecret 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   }
 }
 
-output secretUri string = kvSecret.properties.secretUri
+output secretUri string = kvSecret.properties.secretUriWithVersion
