@@ -19,19 +19,22 @@ stages:
             Write-Host "🔍 Linting Bicep..."
             bicep build ./main.bicep
 
-      - task: PowerShell@2
+      - task: AzureCLI@2
         displayName: 'Bicep What-if Validation'
         inputs:
-          targetType: 'inline'
-          script: |
-            Write-Host "🔎 Validating Bicep Deployment..."
-                az bicep version
+           azureSubscription: 'azure-rg-web-bicep'
+           scriptType: 'bash'
+           scriptLocation: 'inlineScript'
+           inlineScript: |
+            echo "🔍 Validating Bicep Deployment..."
+            az bicep version
 
-                Write-Host "📦 Running What-If Analysis..."
-                az deployment group what-if `
-                  --resource-group rg-webapp-infra-dev `
-                  --template-file ./main.bicep `
-                  --parameters "main.parameters.json"
+            echo "📦 Running What-If Analysis..."
+            az deployment group what-if \
+              --resource-group rg-webapp-infra-dev \
+              --location westeurope \
+              --template-file ./main.bicep \
+              --parameters main.parameters.json
         
           
 - stage: Deploy
