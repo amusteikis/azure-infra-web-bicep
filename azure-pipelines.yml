@@ -32,7 +32,6 @@ stages:
             echo "📦 Running What-If Analysis..."
             az deployment group what-if \
               --resource-group rg-webapp-infra-dev \
-              --location westeurope \
               --template-file ./main.bicep \
               --parameters main.parameters.json
         
